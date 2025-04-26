@@ -1,0 +1,40 @@
+options:
+    np: &cDu hast keine Berechtigung, dies zu tun!
+
+on first join:
+    teleport player to {spawn}
+    
+on join:
+	teleport player to {spawn}
+	
+command /setspawn:
+	trigger:
+		if player has permission "spawn.modify":
+			if {spawn} is not set:
+				send "&6Du hast den Spawnpunkt gesetzt." to player
+				set {spawn} to location of player
+				stop
+			if {spawn} is set:
+				send "&cDer Spawn wurde schon gesetzt. &7(&e/delspawn&7)" to player
+				stop
+		else:
+			send "{@np}" to player
+			stop
+			
+command /delspawn:
+	trigger:
+		if player has permission "spawn.modify":
+			if {spawn} is set:
+				send "&6Du hast den Spawnpunkt gelöscht." to player
+				delete {spawn}
+				stop
+			if {spawn} is not set:
+				send "&cDer Spawnpunkt wurde noch nicht gesetzt &7(&e/setspawn&7)" to player
+				stop
+		else:
+			send "{@np}" to player
+			stop
+			
+command /spawn:
+	trigger:
+		teleport player to {spawn}

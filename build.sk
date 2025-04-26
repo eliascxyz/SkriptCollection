@@ -1,0 +1,32 @@
+options:
+    prefix: &b&lᴍʏᴛʜᴏᴘɪᴀ &8︳
+    np: &cDu hast keine Berechtigung, dies zu tun!
+
+command /build [<player>]:
+    permission: server.build
+    permission message: {@np}
+    trigger:
+        if arg-1 is set:
+            if {build::%arg-1%} is not true:
+                set {build::%arg-1%} to true
+                send "{@prefix} &7%player% hat dich in den Baumodus versetzt." to arg 1
+            else if {build::%arg-1%} is true:
+                set {build::%arg-1%} to true
+                send "{@prefix} &7%player% hat dich wieder in den Spielermodus versetzt." to arg 1
+
+        else if {build::%player%} is not true:
+            set {build::%player%} to true
+            send "{@prefix} &7Nun befindest du dich im Baumodus." to player
+            set player's gamemode to creative
+            clear player's inventory
+            stop
+
+        else if {build::%player%} is true:
+            set {build::%player%} to false
+            send "{@prefix} &7Nun befindest du dich wieder im Spielermodus."  to player
+            set player's gamemode to survival
+            clear player's inventory
+            stop
+
+on join:
+    set {build::%uuid of player%} to false

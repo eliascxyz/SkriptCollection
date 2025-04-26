@@ -1,0 +1,5 @@
+# Requires skript-placeholders
+
+on chat:
+    set {_prefix} to the value of the placeholder "luckperms_prefix" for the player
+    set the chat format to "%{_prefix}%%player's displayname% ︳ %message%"
